@@ -1,0 +1,20 @@
+services:
+  nginx:
+    restart: always
+
+  mariadb:
+    restart: always
+    volumes:
+      - db_data:/pathtovolume
+
+  wordpress:
+    restart: always
+    volumes:
+      - wp_data:/pathtovolume
+
+env_file:
+  .env
+  
+volumes:
+  db_data:
+  wp_data:
