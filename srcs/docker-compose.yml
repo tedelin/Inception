@@ -1,20 +1,38 @@
 services:
   nginx:
+    image: requirements/nginx
     restart: always
+    networks:
+      - wp_network
+    expose:
+      - "443::443"
+    volumes:
+      - wp_data:/var/www/html
 
   mariadb:
+    image : requirements/mariadb
     restart: always
+    networks:
+      - db_network
+    expose:
+      - 3306
     volumes:
-      - db_data:/pathtovolume
+      - db_wp:/var/lib/mysql
 
   wordpress:
+    image: requirements/wordpress
     restart: always
+    networks:
+      - db_network
+      - wp_network
+    expose:
+      - 9000
     volumes:
-      - wp_data:/pathtovolume
+      - wp_data:/var/www/html
 
 env_file:
   .env
-  
+
 volumes:
   db_data:
   wp_data:
