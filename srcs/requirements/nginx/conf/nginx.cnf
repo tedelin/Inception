@@ -1,0 +1,15 @@
+server {
+        listen 443 ssl http2;
+
+        set $dynamic_server_name $DOMAIN_NAME;
+
+        server_name $dynamic_server_name;
+        ssl_protocols TLSv1.3;
+        ssl_certificate /path
+        ssl_certificate_key /path
+
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
