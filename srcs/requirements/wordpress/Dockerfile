@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt-get update && apt-get install -y wget php8.2-fpm mariadb-client && \
+RUN apt-get update && apt-get install -y wget php8.2-fpm mariadb-client php-fpm php-mysql && \
     wget -c http://wordpress.org/latest.tar.gz && \
     tar -xzvf latest.tar.gz && \
     mkdir -p /var/www/html && \

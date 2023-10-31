@@ -11,6 +11,20 @@ services:
       - wp_data:/var/www/html:ro
     env_file:
       .env
+    
+  wordpress:
+    build:
+      context: requirements/wordpress
+    restart: always
+    networks:
+      - db_network
+      - wp_network
+    expose:
+      - 9000
+    volumes:
+      - wp_data:/var/www/html
+    env_file:
+      .env
 
   mariadb:
     build:
@@ -25,19 +39,6 @@ services:
     env_file:
       .env
 
-  wordpress:
-    build:
-      context: requirements/wordpress
-    restart: always
-    networks:
-      - db_network
-      - wp_network
-    expose:
-      - 9000
-    volumes:
-      - wp_data:/var/www/html
-    env_file:
-      .env
 
 networks:
   wp_network:
