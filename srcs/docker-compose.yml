@@ -1,5 +1,8 @@
+version: '3'
+
 services:
   nginx:
+    container_name: nginx
     build:
       context: requirements/nginx
     restart: always
@@ -9,16 +12,21 @@ services:
       - 443:443
     volumes:
       - wp_data:/var/www/html:ro
+    depends_on:
+      - wordpress
     env_file:
       .env
     
   wordpress:
+    container_name: wordpress
     build:
       context: requirements/wordpress
     restart: always
     networks:
       - db_network
       - wp_network
+    depends_on:
+      - mariadb
     expose:
       - 9000
     volumes:
@@ -27,6 +35,7 @@ services:
       .env
 
   mariadb:
+    container_name: mariadb
     build:
       context: requirements/mariadb
     restart: always
@@ -50,3 +59,8 @@ networks:
 volumes:
   db_data:
   wp_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/tedelin/Documents/42/Inception/wp'
