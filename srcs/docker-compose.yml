@@ -7,32 +7,29 @@ services:
       context: requirements/nginx
     restart: always
     networks:
-      - wp_network
+      - docker_network
     ports:
       - 443:443
     volumes:
       - wp_data:/var/www/html:ro
     depends_on:
       - wordpress
-    env_file:
-      .env
-    
+    env_file: .env
+
   wordpress:
     container_name: wordpress
     build:
       context: requirements/wordpress
     restart: always
     networks:
-      - db_network
-      - wp_network
+      - docker_network
     depends_on:
       - mariadb
     expose:
       - 9000
     volumes:
       - wp_data:/var/www/html
-    env_file:
-      .env
+    env_file: .env
 
   mariadb:
     container_name: mariadb
@@ -40,27 +37,28 @@ services:
       context: requirements/mariadb
     restart: always
     networks:
-      - db_network
+      - docker_network
     expose:
       - 3306
     volumes:
       - db_data:/var/lib/mysql
-    env_file:
-      .env
-
+    env_file: .env
 
 networks:
-  wp_network:
+  docker_network:
+    name: docker_network
     driver: bridge
-  db_network:
-    driver: bridge
-
 
 volumes:
   db_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/tedelin/Documents/42/Inception/db'
   wp_data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/tedelin/Documents/42/Inception/wp'
+      device: '/Users/tedelin/Documents/42/Inception/wp'

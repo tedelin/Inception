@@ -1,14 +1,10 @@
 <?php
-define('DB_NAME', 'wp_data');
-define('DB_USER', 'tedelin');
-define('DB_PASSWORD', 'helloworld');
-define('DB_HOST', 'mariadb:3306');
+define('DB_NAME', getenv('DB_NAME'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
+define('DB_HOST', getenv('DB_HOST'));
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
-
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
 
 $table_prefix = 'wp_';
 

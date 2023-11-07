@@ -1,19 +1,19 @@
-FROM debian:bookworm
+FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y mariadb-server
 
-COPY conf/init.sql /docker-entrypoint-initdb.d/init.sql
-COPY conf/mariadb.cnf /etc/mysql/my.cnf
+COPY conf/start.sh ./start.sh
+# COPY conf/mariadb.cnf /etc/mysql/my.cnf
 
 # ENV MYSQL_ROOT_PASSWORD="helloworld"
 
+# EXPOSE 3306
+
 RUN chown -R mysql:mysql /var/lib/mysql
 
-RUN chmod +x /docker-entrypoint-initdb.d/init.sql && \
-    service mariadb start && \
-    mysql -u root -p$MYSQL_ROOT_PASSWORD -e "source /docker-entrypoint-initdb.d/init.sql"
-    # mysql -u root -p
-    # mysql -u root -p$MYSQL_ROOT_PASSWORD -e "source init.sql"
-    # mysql -u root -p$MYSQL_ROOT_PASSWORD
+COPY conf/sql.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-CMD ["mysqld", "--user=root"]
+RUN chmod +x ./start.sh
+
+ENTRYPOINT ["bash", "./start.sh" ]
+# CMD ["mysqld_safe"]
