@@ -1,21 +1,18 @@
 version: '3'
 
 services:
-  nginx:
-    container_name: nginx
+  mariadb:
+    container_name: mariadb
     build:
-      context: requirements/nginx
+      context: requirements/mariadb
     restart: always
     networks:
       - docker_network
-    ports:
-      - 443:443
+    expose:
+      - 3306
     volumes:
-      - wp_data:/var/www/html:ro
-    depends_on:
-      - wordpress
+      - mariadb:/var/lib/mysql
     env_file: .env
-
   wordpress:
     container_name: wordpress
     build:
@@ -28,20 +25,21 @@ services:
     expose:
       - 9000
     volumes:
-      - wp_data:/var/www/html
+      - wordpress:/var/www/html/wordpress
     env_file: .env
-
-  mariadb:
-    container_name: mariadb
+  nginx:
+    container_name: nginx
     build:
-      context: requirements/mariadb
+      context: requirements/nginx
     restart: always
     networks:
       - docker_network
-    expose:
-      - 3306
+    ports:
+      - 443:443
     volumes:
-      - db_data:/var/lib/mysql
+      - wordpress:/var/www/html/wordpress
+    depends_on:
+      - wordpress
     env_file: .env
 
 networks:
@@ -50,15 +48,15 @@ networks:
     driver: bridge
 
 volumes:
-  db_data:
+  mariadb:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tedelin/Documents/42/Inception/db'
-  wp_data:
+      device: '/home/tedelin/data/mariadb'
+  wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tedelin/Documents/42/Inception/wp'
+      device: '/home/tedelin/data/wordpress'
