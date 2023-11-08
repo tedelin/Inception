@@ -5,7 +5,7 @@ services:
     container_name: mariadb
     build:
       context: requirements/mariadb
-    restart: always
+    restart: on-failure
     networks:
       - docker_network
     expose:
@@ -17,7 +17,7 @@ services:
     container_name: wordpress
     build:
       context: requirements/wordpress
-    restart: always
+    restart: on-failure
     networks:
       - docker_network
     depends_on:
@@ -31,7 +31,7 @@ services:
     container_name: nginx
     build:
       context: requirements/nginx
-    restart: always
+    restart: on-failure
     networks:
       - docker_network
     ports:
