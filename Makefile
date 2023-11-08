@@ -3,7 +3,7 @@ COMPOSE_FILE=srcs/docker-compose.yml
 
 all:
 	@mkdir -p wordpress mariadb
-	docker compose -p $(NAME) -f $(COMPOSE_FILE) up --build -d
+	docker compose -p $(NAME) -f $(COMPOSE_FILE) up -d
 
 down:
 	docker compose -p $(NAME) -f $(COMPOSE_FILE) down
