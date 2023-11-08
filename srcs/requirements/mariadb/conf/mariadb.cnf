@@ -1,6 +1,8 @@
-[client-server]
+[mysqld]
+datadir = /var/lib/mysql
+basedir = /usr
+bind_address = 0.0.0.0
 port = 3306
-
-# Import all .cnf files from configuration directory
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mariadb.conf.d/
+user = root
+log_error = /var/log/mysql/error.log
+socket = /var/run/mysqld/mysqld.sock

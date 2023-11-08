@@ -3,7 +3,7 @@ if [ ! -d "/run/php" ]; then
     mkdir -p /run/php
 fi
 
-sleep 10
+sleep 5
 
 cd /var/www/html/wordpress
 
@@ -24,6 +24,5 @@ if ! wp core is-installed --allow-root; then
         ${WP_USER_LOGIN} ${WP_USER_EMAIL} \
         --user_pass=${WP_USER_PASSWORD};
     wp cache flush --allow-root
-
 fi
 exec /usr/sbin/php-fpm7.4 -F -R

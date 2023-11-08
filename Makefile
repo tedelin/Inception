@@ -6,6 +6,7 @@ all:
 	docker compose -p $(NAME) -f $(COMPOSE_FILE) up -d
 
 build:
+	mkdir -p wordpress mariadb
 	docker compose -p $(NAME) -f $(COMPOSE_FILE) up --build -d
 
 fclean:
