@@ -1,14 +1,9 @@
 #!/bin/bash
-if [ ! -d "/run/php" ]; then
-    mkdir -p /run/php
-fi
-
-sleep 5
-
+sleep 2
 cd /var/www/html/wordpress
 
 if ! wp core is-installed --allow-root; then
-    wp config create --allow-root \
+    wp config create --force --allow-root \
         --dbname=${DB_NAME} \
         --dbuser=${DB_USER} \
         --dbpass=${DB_PASSWORD} \
