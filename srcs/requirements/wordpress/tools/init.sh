@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 2
+sleep 10
 cd /var/www/html/wordpress
 
 if ! wp core is-installed --allow-root; then
