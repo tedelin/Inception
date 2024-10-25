@@ -50,10 +50,10 @@ volumes:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "${HOME}/data/mariadb"
+      device: "${USER_DIRECTORY}/data/mariadb"
   website:
     driver: local
     driver_opts:
       type: "none"
       o: "bind"
-      device: "${HOME}/data/wordpress"
+      device: "${USER_DIRECTORY}/data/wordpress"
