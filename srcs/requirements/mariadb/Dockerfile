@@ -1,6 +1,7 @@
-FROM debian:bullseye
+FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt-get update && apt-get install -y mariadb-server && \
+	rm -rf /var/lib/apt/lists/*
 
 COPY tools/init.sh ./init.sh
 RUN chmod +x init.sh
