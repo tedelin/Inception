@@ -3,7 +3,7 @@ COMPOSE_FILE=srcs/docker-compose.yml
 
 all:
 	@mkdir -p ~/data/wordpress ~/data/mariadb
-	docker compose -p $(NAME) -f $(COMPOSE_FILE) up -d
+	docker compose -p $(NAME) -f $(COMPOSE_FILE) up -d --build
 	
 stop:
 	docker compose -p $(NAME) -f $(COMPOSE_FILE) stop
